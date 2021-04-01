@@ -1,6 +1,5 @@
 package main
 
-
 import (
     "strconv"
     "bytes"
@@ -10,7 +9,6 @@ import (
 	"io/ioutil"
     "net/http"
 )
-
 
 //Constantes
 const API_URL = "https://jsonplaceholder.typicode.com/photos"
@@ -28,10 +26,6 @@ const (
     OpcionSalir = 6
 )
 
-
-
-
-
 // Estructura para la imagen
 type Image struct{
     AlbumId int  `json:albumId` 
@@ -41,14 +35,10 @@ type Image struct{
     ThumbnailUrl string  `json:thumbnailUrl` 
 }
 
-
 //Método main, contiene el ciclo del menú
 func main() {
 
-
-
     opcion := 1
-
 
     for {
         opcion = Menu()
@@ -65,16 +55,13 @@ func main() {
             exito, error = ListarImagenes()
         }
 
-
         if opcion == OpcionCrear {
             exito, error = CrearImagen()
         }
 
-
         if opcion == OpcionModificar {
             exito, error = ModificarImagen()
         }
-
 
         if opcion == OpcionConsultar {
             exito, error = ConsultarImagen()
@@ -108,8 +95,6 @@ func main() {
         if !OtraOperacion(){
             break;
         }
-
-
     }
 
 }
@@ -127,7 +112,6 @@ func OtraOperacion() bool {
 func EsOpcionValida(opcion int) bool{
     return opcion>0 && opcion<7
 }
-
 
 //Despliega el menú y pide al usuario que ingrese una opción
 func Menu() int {
@@ -149,14 +133,9 @@ func Menu() int {
     //En caso de que el usuario ponga una opción inválida se retorna -1
     if err!=nil {
         return -1
-    }
-        
+    }      
     return res
-
 }
-
-
-
 
 ///////////FUNCIONES DE LAS OPCIONES DEL MENÚ
 //////////////////////
@@ -267,8 +246,6 @@ func ConsultarImagen() (exito string, err  error){
         exito = "Operación exitosa"
     }
 
-
-
     return 
 }
 
@@ -287,18 +264,10 @@ func BorrarImagen() (exito string,err error){
     }
 
     return ;
-
 }
-
-
-
-
-
-
 
 /////////// FUNCIONES QUE INTERACTÚAN CON LA API
 //////////////////////
-
 
 //Esta función hace un get a la api y retorna un arreglo de estructuras con las imagenes
 func GetList() ([]Image, error) {
@@ -392,7 +361,6 @@ func PutImage(image Image) error{
     return err
 }
 
-
 //Esta función manda un mensaje a slack
 func PostSlack(mensaje string){
 
@@ -404,7 +372,6 @@ func PostSlack(mensaje string){
         fmt.Println(err)
     }
 }
-
 
 func ImprimirRespuesta(res io.ReadCloser){
     if res==nil {return }
@@ -418,9 +385,6 @@ func ImprimirRespuesta(res io.ReadCloser){
         fmt.Print("\n\nRespuesta del servidor\n")
         fmt.Print(mensaje+ "\n\n")
     }
-
-
-
 }
 
 
